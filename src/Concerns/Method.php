@@ -17,7 +17,7 @@ interface Method
      *
      * @param array|null $params The parameters for the method
      * @param string|int $id The request ID
-     * @return mixed|Response The result of the method execution or a Response object
+     * @return mixed|Response The result of the method execution, an Error or a Response object
      */
     public function execute(Request $request);
 }

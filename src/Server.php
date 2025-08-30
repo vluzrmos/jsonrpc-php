@@ -75,7 +75,7 @@ class Server
         return $this->handleRequest($request);
     }
 
-    public function parseRequest($request)
+    protected function parseRequest($request)
     {
         if ($request instanceof Request) {
             if ($request->getJsonRPC() !== '2.0') {
