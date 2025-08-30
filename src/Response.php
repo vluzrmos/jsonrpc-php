@@ -3,8 +3,9 @@
 namespace Vluzrmos\JsonRPC;
 
 use ArrayAccess;
+use JsonSerializable;
 
-class Response implements ArrayAccess
+class Response implements ArrayAccess, JsonSerializable
 {
     protected $version = '2.0';
 
@@ -109,5 +110,10 @@ class Response implements ArrayAccess
     public function offsetUnset($offset)
     {
         throw new \BadMethodCallException('Not allowed to unset values on the response object.');
+    }
+
+    public function jsonSerialize()
+    {
+        return (object) $this->toArray();
     }
 }

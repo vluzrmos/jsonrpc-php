@@ -2,7 +2,7 @@
 
 namespace Vluzrmos\JsonRPC;
 
-class Error
+class Error implements \JsonSerializable, \ArrayAccess
 {
     protected $code;
     protected $message;
@@ -120,5 +120,31 @@ class Error
         }
 
         return $error;
+    }
+
+    public function jsonSerialize()
+    {
+        return (object) $this->toArray();
+    }
+
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset, $this->toArray());
+    }
+
+    public function offsetGet($offset)
+    {
+        $array = $this->toArray();
+        return array_key_exists($offset, $array) ? $array[$offset] : null;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        throw new \BadMethodCallException('Not allowed to set values on the error object.');
+    }
+
+    public function offsetUnset($offset)
+    {
+        throw new \BadMethodCallException('Not allowed to unset values on the error object.');
     }
 }
